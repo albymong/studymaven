@@ -5,16 +5,24 @@
         <id property="id" column="id" />
         <result property="title" column="title" />
         <result property="content" column="content" />
+        <result property="writerId" column="writer_id" />
+        <result property="writerName" column="writer_name" />
         <result property="createDate" column="create_date" />
         <result property="updateDate" column="update_date" />
     </resultMap>
 
     <select id="selectAll" resultMap="BoardResultMap">
-        SELECT * FROM board ORDER BY id DESC
+        SELECT b.id, b.title, b.content, b.writer_id, m.name as writer_name, b.create_date, b.update_date
+        FROM board b
+        LEFT JOIN member m ON b.writer_id = m.id
+        ORDER BY b.id DESC
     </select>
 
     <select id="selectPage" resultMap="BoardResultMap">
-        SELECT * FROM board ORDER BY id DESC LIMIT #{limit} OFFSET #{offset}
+        SELECT b.id, b.title, b.content, b.writer_id, m.name as writer_name, b.create_date, b.update_date
+        FROM board b
+        LEFT JOIN member m ON b.writer_id = m.id
+        ORDER BY b.id DESC LIMIT #{limit} OFFSET #{offset}
     </select>
 
     <select id="count" resultType="int">
@@ -22,12 +30,15 @@
     </select>
 
     <select id="select" resultMap="BoardResultMap">
-        SELECT * FROM board WHERE id = #{id}
+        SELECT b.id, b.title, b.content, b.writer_id, m.name as writer_name, b.create_date, b.update_date
+        FROM board b
+        LEFT JOIN member m ON b.writer_id = m.id
+        WHERE b.id = #{id}
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO board (title, content, create_date, update_date)
-        VALUES (#{title}, #{content}, NOW(), NOW())
+        INSERT INTO board (title, content, writer_id, create_date, update_date)
+        VALUES (#{title}, #{content}, #{writerId}, NOW(), NOW())
     </insert>
 
     <update id="update">

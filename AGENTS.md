@@ -17,8 +17,8 @@
 - `pom.xml` - Maven config (Spring 7.0.7, JUnit 3.8.1)
 - `src/main/webapp/WEB-INF/web.xml` - Servlet context config
 - `src/main/webapp/WEB-INF/dispatcher-servlet.xml` - Spring MVC config
-- `src/main/java/com/studymaven/TestController.java` - Controller
 
 ## Important Notes
 - Component scan in dispatcher-servlet.xml targets `com.studymaven`
 - View resolver configured for `/WEB-INF/views/*.jsp`
+- 날짜 포맷: 작성 후 7일 이내 = `yyyy-MM-dd HH:mm`, 이후 = `yyyy-MM-dd`

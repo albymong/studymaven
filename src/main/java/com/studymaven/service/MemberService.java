@@ -18,4 +18,12 @@ public class MemberService {
         params.put("password", password);
         return mapper.selectByUserid(params);
     }
+
+    public boolean checkDuplicate(String userid) {
+        return mapper.selectByUseridOnly(userid) != null;
+    }
+
+    public void join(MemberVO vo) {
+        mapper.insert(vo);
+    }
 }

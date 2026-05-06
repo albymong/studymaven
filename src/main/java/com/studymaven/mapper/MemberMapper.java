@@ -5,4 +5,6 @@ import java.util.Map;
 
 public interface MemberMapper {
     MemberVO selectByUserid(Map<String, Object> params);
+    MemberVO selectByUseridOnly(String userid);
+    void insert(MemberVO vo);
 }

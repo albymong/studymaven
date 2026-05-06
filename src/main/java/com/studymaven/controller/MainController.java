@@ -4,6 +4,7 @@ import com.studymaven.domain.BoardVO;
 import com.studymaven.domain.MemberVO;
 import com.studymaven.service.BoardService;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,24 @@ public class MainController {
             return "redirect:/login";
         }
         Map<String, Object> result = boardService.getPage(1);
-        model.addAttribute("list", result.get("list"));
+        List<BoardVO> list = (List<BoardVO>) result.get("list");
+        for (BoardVO vo : list) {
+            vo.setCreateDate(formatDate(vo.getCreateDate()));
+        }
+        model.addAttribute("list", list);
         model.addAttribute("total", result.get("total"));
         model.addAttribute("loginUser", loginUser);
         return "main/main";
+    }
+
+    private String formatDate(String s) {
+        if (s == null || s.length() < 19) return s;
+        try {
+            LocalDateTime dt = LocalDateTime.parse(s.substring(0, 19).replace(" ", "T"));
+            if (dt.plusDays(7).isAfter(LocalDateTime.now())) {
+                return s.substring(0, 16);
+            }
+            return s.substring(0, 10);
+        } catch (Exception e) { return s; }
     }
 }
