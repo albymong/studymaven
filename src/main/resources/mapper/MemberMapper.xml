@@ -13,4 +13,13 @@
     <select id="selectByUserid" resultMap="MemberResultMap">
         SELECT * FROM member WHERE userid = #{userid} AND password = #{password}
     </select>
+
+    <select id="selectByUseridOnly" resultMap="MemberResultMap">
+        SELECT * FROM member WHERE userid = #{userid}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO member (userid, password, name, create_date, update_date)
+        VALUES (#{userid}, #{password}, #{name}, NOW(), NOW())
+    </insert>
 </mapper>

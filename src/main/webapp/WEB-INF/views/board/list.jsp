@@ -1,5 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%!
+    String fmtDate(Object d) {
+        if (d == null) return "";
+        String s = d.toString();
+        if (s.length() < 19) return s;
+        try {
+            java.time.LocalDateTime dt = java.time.LocalDateTime.parse(s.substring(0, 19).replace(" ", "T"));
+            if (dt.plusDays(7).isAfter(java.time.LocalDateTime.now())) return s.substring(0, 16);
+            return s.substring(0, 10);
+        } catch (Exception e) { return s; }
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,6 +68,7 @@
                         <tr>
                             <th style="width:60px">No</th>
                             <th>제목</th>
+                            <th style="width:100px">작성자</th>
                             <th style="width:150px">작성일</th>
                             <th style="width:150px">수정일</th>
                             <th style="width:150px">작업</th>
@@ -67,6 +81,7 @@
                         <tr>
                             <td>${total - offset - status.index}</td>
                             <td><a href="/board/view/${vo.id}?page=${currentPage}">${vo.title}</a></td>
+                            <td><c:out value="${vo.writerName}"/></td>
                             <td>${vo.createDate}</td>
                             <td>${vo.updateDate}</td>
                             <td>

@@ -28,6 +28,7 @@
         <div class="card">
             <div class="title">${vo.title}</div>
             <div class="meta">
+                <span>작성자: ${vo.writerName}</span>
                 <span>작성일: ${vo.createDate}</span>
                 <span>수정일: ${vo.updateDate}</span>
             </div>

@@ -23,6 +23,28 @@ public class AuthController {
         return "main/login";
     }
 
+    @GetMapping("/join")
+    public String joinForm() {
+        return "main/join";
+    }
+
+    @PostMapping("/join")
+    public String join(@RequestParam("userid") String userid,
+                    @RequestParam("password") String password,
+                    @RequestParam("name") String name,
+                    Model model) {
+        if (service.checkDuplicate(userid)) {
+            model.addAttribute("error", "이미 사용 중인 아이디입니다.");
+            return "main/join";
+        }
+        MemberVO vo = new MemberVO();
+        vo.setUserid(userid);
+        vo.setPassword(password);
+        vo.setName(name);
+        service.join(vo);
+        return "redirect:/login";
+    }
+
     @PostMapping("/login")
     public String login(@RequestParam("userid") String userid, @RequestParam("password") String password, HttpSession session, Model model) {
         MemberVO vo = service.login(userid, password);

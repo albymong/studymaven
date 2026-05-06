@@ -4,6 +4,8 @@ public class BoardVO {
     private Long id;
     private String title;
     private String content;
+    private Long writerId;
+    private String writerName;
     private String createDate;
     private String updateDate;
 
@@ -13,6 +15,10 @@ public class BoardVO {
     public void setTitle(String title) { this.title = title; }
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
+    public Long getWriterId() { return writerId; }
+    public void setWriterId(Long writerId) { this.writerId = writerId; }
+    public String getWriterName() { return writerName; }
+    public void setWriterName(String writerName) { this.writerName = writerName; }
     public String getCreateDate() { return createDate; }
     public void setCreateDate(String createDate) { this.createDate = createDate; }
     public String getUpdateDate() { return updateDate; }
