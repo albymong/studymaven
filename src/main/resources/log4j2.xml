@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="pattern">%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern}"/>
+        </Console>
+        <RollingFile name="File" fileName="logs/studymaven.log" filePattern="logs/studymaven.%i.log">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.mybatis" level="trace"/>
+        <Logger name="com.studymaven.mapper" level="DEBUG"/>
+        <Logger name="java.sql" level="debug"/>
+        <Logger name="java.sql.Connection" level="debug"/>
+        <Logger name="java.sql.Statement" level="debug"/>
+        <Logger name="java.sql.PreparedStatement" level="debug"/>
+        <Logger name="java.sql.ResultSet" level="debug"/>
+        <Logger name="org.springframework" level="info"/>
+        <Logger name="jakarta.servlet" level="info"/>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+</Configuration>
