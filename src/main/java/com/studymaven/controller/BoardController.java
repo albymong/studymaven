@@ -22,7 +22,7 @@ public class BoardController {
         model.addAttribute("currentPage", result.get("currentPage"));
         model.addAttribute("totalPages", result.get("totalPages"));
         model.addAttribute("total", result.get("total"));
-        return "board/list";
+        return "board/list";//목록
     }
 
     @GetMapping("/view/{id}")
