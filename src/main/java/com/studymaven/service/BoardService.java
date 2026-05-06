@@ -32,7 +32,10 @@ public class BoardService {
         return result;
     }
     public BoardVO get(Long id) { return mapper.select(id); }
-    public void create(BoardVO vo) { mapper.insert(vo); }
+    public void create(BoardVO vo, Long writerId) {
+        vo.setWriterId(writerId);
+        mapper.insert(vo);
+    }
     public void update(BoardVO vo) { mapper.update(vo); }
     public void delete(Long id) { mapper.delete(id); }
 }
