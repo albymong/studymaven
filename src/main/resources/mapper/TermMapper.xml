@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.studymaven.mapper.TermMapper">
+    <resultMap id="TermResultMap" type="com.studymaven.domain.TermVO">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="definition" column="definition" />
+        <result property="content" column="content" />
+        <result property="category" column="category" />
+        <result property="tags" column="tags" />
+        <result property="authorId" column="author_id" />
+        <result property="authorName" column="author_name" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+    </resultMap>
+
+    <select id="search" resultMap="TermResultMap">
+        SELECT t.*, m.name as author_name
+        FROM term t
+        LEFT JOIN member m ON t.author_id = m.id
+        WHERE t.title LIKE '%' || #{query} || '%'
+           OR t.definition LIKE '%' || #{query} || '%'
+           OR t.tags LIKE '%' || #{query} || '%'
+        ORDER BY t.id DESC
+    </select>
+
+    <select id="select" resultMap="TermResultMap">
+        SELECT t.*, m.name as author_name
+        FROM term t
+        LEFT JOIN member m ON t.author_id = m.id
+        WHERE t.id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="TermResultMap">
+        SELECT t.*, m.name as author_name
+        FROM term t
+        LEFT JOIN member m ON t.author_id = m.id
+        ORDER BY t.id DESC
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO term (title, definition, content, category, tags, author_id, create_date, update_date)
+        VALUES (#{title}, #{definition}, #{content}, #{category}, #{tags}, #{authorId}, NOW(), NOW())
+    </insert>
+
+    <update id="update">
+        UPDATE term SET title = #{title}, definition = #{definition}, content = #{content},
+               category = #{category}, tags = #{tags}, update_date = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM term WHERE id = #{id}
+    </delete>
+
+    <select id="selectCategories" resultType="string">
+        SELECT DISTINCT category FROM term WHERE category IS NOT NULL ORDER BY category
+    </select>
+</mapper>

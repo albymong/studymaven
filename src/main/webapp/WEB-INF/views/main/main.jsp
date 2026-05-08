@@ -62,6 +62,10 @@
         </div>
         <div style="text-align: center;">
             <a href="/board" class="btn" style="background: #3b82f6;">전체 게시글 보기</a>
+            <a href="/term" class="btn" style="background: #10b981;">용어사전</a>
+            <c:if test="${loginUser.role == 'ADMIN'}">
+                <a href="/term/import" class="btn" style="background: #8b5cf6;">용어 가져오기</a>
+            </c:if>
         </div>
     </div>
 </body>
