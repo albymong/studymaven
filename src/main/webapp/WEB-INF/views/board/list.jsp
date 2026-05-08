@@ -32,7 +32,7 @@
         .btn-disabled { background: #9ca3af; pointer-events: none; }
         .card { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
         table { width: 100%; border-collapse: collapse; }
-        th { background: #f9fafb; padding: 12px; text-align: left; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb; }
+        th { background: #f9fafb; padding: 12px; text-align: center; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb; }
         td { padding: 12px; border-bottom: 1px solid #e5e7eb; color: #374151; }
         tr:hover { background: #f9fafb; }
         .actions { display: flex; gap: 8px; }
@@ -80,8 +80,8 @@
                         <c:forEach var="vo" items="${list}" varStatus="status">
                         <tr>
                             <td>${total - offset - status.index}</td>
-                            <td><a href="/board/view/${vo.id}?page=${currentPage}">${vo.title}</a></td>
-                            <td><c:out value="${vo.writerName}"/></td>
+                             <td><a href="/board/view/${vo.id}?page=${currentPage}"><c:out value="${vo.title}"/></a></td>
+                             <td><c:out value="${vo.writerName}"/></td>
                             <td>${vo.createDate}</td>
                             <td>${vo.updateDate}</td>
                             <td>
