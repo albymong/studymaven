@@ -63,22 +63,37 @@ public class BoardController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editForm(@PathVariable("id") Long id, @RequestParam(value="page", defaultValue="1") int page, Model model) {
+    public String editForm(@PathVariable("id") Long id, @RequestParam(value="page", defaultValue="1") int page, Model model, HttpSession session) {
+        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
         BoardVO vo = service.get(id);
+        if (vo == null) return "redirect:/board?page=" + page;
+        if (loginUser == null || (!vo.getWriterId().equals(loginUser.getId()) && !"ADMIN".equals(loginUser.getRole()))) {
+            return "redirect:/board/view/" + id + "?page=" + page;
+        }
         model.addAttribute("vo", vo);
         model.addAttribute("page", page);
         return "board/edit";
     }
-
+ 
     @PostMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, @ModelAttribute BoardVO vo, @RequestParam(value="page", defaultValue="1") int page) {
+    public String edit(@PathVariable("id") Long id, @ModelAttribute BoardVO vo, @RequestParam(value="page", defaultValue="1") int page, HttpSession session) {
+        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+        BoardVO existing = service.get(id);
+        if (loginUser == null || existing == null || (!existing.getWriterId().equals(loginUser.getId()) && !"ADMIN".equals(loginUser.getRole()))) {
+            return "redirect:/board/view/" + id + "?page=" + page;
+        }
         vo.setId(id);
         service.update(vo);
         return "redirect:/board?page=" + page;
     }
-
+ 
     @PostMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Long id, @RequestParam(value="page", defaultValue="1") int page) {
+    public String delete(@PathVariable("id") Long id, @RequestParam(value="page", defaultValue="1") int page, HttpSession session) {
+        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+        BoardVO existing = service.get(id);
+        if (loginUser == null || existing == null || (!existing.getWriterId().equals(loginUser.getId()) && !"ADMIN".equals(loginUser.getRole()))) {
+            return "redirect:/board?page=" + page;
+        }
         service.delete(id);
         return "redirect:/board?page=" + page;
     }

@@ -48,23 +48,23 @@
         <c:if test="${empty list}">
             <div class="empty">검색 결과가 없습니다.</div>
         </c:if>
-        <c:forEach var="vo" items="${list}">
-            <div class="card">
-                <a href="/term/view/${vo.id}" class="term-title">${vo.title}</a>
-                <p class="term-def">${vo.definition}</p>
-                <div class="term-meta">
-                    <c:if test="${vo.category != null}">
-                        <span class="category">${vo.category}</span>
-                    </c:if>
-                    <c:if test="${vo.tags != null}">
-                        <c:forEach var="tag" items="${fn:split(vo.tags, ',')}">
-                            <span class="tag">${tag}</span>
-                        </c:forEach>
-                    </c:if>
-                    <span> | 작성자: ${vo.authorName} | ${vo.createDate}</span>
-                </div>
-            </div>
-        </c:forEach>
+                <c:forEach var="vo" items="${list}">
+                    <div class="card">
+                        <a href="/term/view/${vo.id}" class="term-title"><c:out value="${vo.title}"/></a>
+                        <p class="term-def"><c:out value="${vo.definition}"/></p>
+                        <div class="term-meta">
+                            <c:if test="${vo.category != null}">
+                                <span class="category"><c:out value="${vo.category}"/></span>
+                            </c:if>
+                            <c:if test="${vo.tags != null}">
+                                <c:forEach var="tag" items="${fn:split(vo.tags, ',')}">
+                                    <span class="tag"><c:out value="${tag}"/></span>
+                                </c:forEach>
+                            </c:if>
+                            <span> | 작성자: <c:out value="${vo.authorName}"/> | <c:out value="${vo.createDate}"/></span>
+                        </div>
+                    </div>
+                </c:forEach>
     </div>
 </body>
 </html>

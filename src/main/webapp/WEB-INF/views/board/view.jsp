@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,13 +27,15 @@
     <div class="container">
         <h1>게시판 보기</h1>
         <div class="card">
-            <div class="title">${vo.title}</div>
+            <div class="title"><c:out value="${vo.title}"/></div>
+ 
             <div class="meta">
-                <span>작성자: ${vo.writerName}</span>
-                <span>작성일: ${vo.createDate}</span>
-                <span>수정일: ${vo.updateDate}</span>
+                <span>작성자: <c:out value="${vo.writerName}"/></span>
+                <span>작성일: <c:out value="${vo.createDate}"/></span>
+                <span>수정일: <c:out value="${vo.updateDate}"/></span>
             </div>
-            <div class="content">${vo.content}</div>
+ 
+            <div class="content"><c:out value="${vo.content}"/></div>
             <div class="actions">
                 <a href="/board/edit/${vo.id}?page=${page}" class="btn">수정</a>
                 <a href="/board?page=${page}" class="btn btn-secondary">목록</a>

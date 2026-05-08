@@ -80,8 +80,8 @@
                         <c:forEach var="vo" items="${list}" varStatus="status">
                         <tr>
                             <td>${total - offset - status.index}</td>
-                            <td><a href="/board/view/${vo.id}?page=${currentPage}">${vo.title}</a></td>
-                            <td><c:out value="${vo.writerName}"/></td>
+                             <td><a href="/board/view/${vo.id}?page=${currentPage}"><c:out value="${vo.title}"/></a></td>
+                             <td><c:out value="${vo.writerName}"/></td>
                             <td>${vo.createDate}</td>
                             <td>${vo.updateDate}</td>
                             <td>
