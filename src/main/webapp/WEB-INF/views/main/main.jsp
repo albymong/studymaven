@@ -30,38 +30,49 @@
         <div class="header">
             <div class="logo">Studymaven</div>
             <div class="user-info">
-                <span class="user-name">${loginUser.name}님 환영합니다</span>
-                <form action="/logout" method="post">
-                    <button type="submit" class="btn btn-danger">로그아웃</button>
-                </form>
+                <span class="user-name"><c:out value="${loginUser.name}"/>님 환영합니다</span>
+                <c:choose>
+                    <c:when test="${not empty loginUser}">
+                        <a href="/main/logout" class="btn btn-danger">로그아웃</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="/main/login" class="btn">로그인</a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
+ 
         <div class="card">
-            <div style="padding: 16px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
-                <h2 style="color: #111;">최근 게시글</h2>
-                <span style="color: #6b7280;">총 ${total}개</span>
+            <div style="padding: 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e5e7eb;">
+                <h2 style="font-size: 18px;">최근 게시글</h2>
+                <span class="info" style="color: #6b7280; font-size: 14px;">총 <c:out value="${total}"/>개</span>
             </div>
             <table>
                 <thead>
                     <tr>
-                        <th style="width:60px">No</th>
+                        <th style="width: 60px; text-align: center;">번호</th>
                         <th>제목</th>
-                        <th style="width:150px">작성일</th>
+                        <th style="width: 150px; text-align: center;">작성일</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach var="vo" items="${list}" begin="0" end="5">
-                    <tr>
-                        <td>${vo.id}</td>
-                        <td><a href="/board/view/${vo.id}?page=1" class="link-btn">${vo.title}</a></td>
-                        <td>${vo.createDate}</td>
-                    </tr>
+                        <tr>
+                            <td style="text-align: center;"><c:out value="${vo.id}"/></td>
+                            <td><a href="/board/view/${vo.id}?page=1" class="link-btn"><c:out value="${vo.title}"/></a></td>
+                            <td style="text-align: center;"><c:out value="${vo.createDate}"/></td>
+                        </tr>
                     </c:forEach>
                 </tbody>
             </table>
         </div>
-        <div style="text-align: center;">
+ 
+        <div style="text-align: center; margin-top: 24px; display: flex; justify-content: center; gap: 12px;">
             <a href="/board" class="btn" style="background: #3b82f6;">전체 게시글 보기</a>
+            <a href="/term" class="btn" style="background: #10b981;">용어사전</a>
+            <c:if test="${loginUser.role == 'ADMIN'}">
+                <a href="/term/import" class="btn" style="background: #8b5cf6;">용어 가져오기</a>
+            </c:if>
         </div>
     </div>
 </body>

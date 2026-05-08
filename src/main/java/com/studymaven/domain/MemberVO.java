@@ -5,6 +5,7 @@ public class MemberVO {
     private String userid;
     private String password;
     private String name;
+    private String role;
     private String createDate;
     private String updateDate;
 
@@ -16,6 +17,8 @@ public class MemberVO {
     public void setPassword(String password) { this.password = password; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
     public String getCreateDate() { return createDate; }
     public void setCreateDate(String createDate) { this.createDate = createDate; }
     public String getUpdateDate() { return updateDate; }
