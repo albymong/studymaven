@@ -13,7 +13,7 @@ public class BoardService {
     @Autowired
     private BoardMapper mapper;
 
-    private static final int PAGE_SIZE = 5;
+    private static final int PAGE_SIZE = 10;
 
     public List<BoardVO> getAll() { return mapper.selectAll(); }
     public Map<String, Object> getPage(int page) {

@@ -21,7 +21,7 @@
         WHERE t.title LIKE '%' || #{query} || '%'
            OR t.definition LIKE '%' || #{query} || '%'
            OR t.tags LIKE '%' || #{query} || '%'
-        ORDER BY t.id DESC
+        ORDER BY t.title ASC
     </select>
 
     <select id="select" resultMap="TermResultMap">
@@ -35,7 +35,7 @@
         SELECT t.*, m.name as author_name
         FROM term t
         LEFT JOIN member m ON t.author_id = m.id
-        ORDER BY t.id DESC
+        ORDER BY t.title ASC
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">

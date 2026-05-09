@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/board")
@@ -67,7 +68,7 @@ public class BoardController {
         MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
         BoardVO vo = service.get(id);
         if (vo == null) return "redirect:/board?page=" + page;
-        if (loginUser == null || (!vo.getWriterId().equals(loginUser.getId()) && !"ADMIN".equals(loginUser.getRole()))) {
+        if (loginUser == null || (!Objects.equals(vo.getWriterId(), loginUser.getId()) && !"ADMIN".equals(loginUser.getRole()))) {
             return "redirect:/board/view/" + id + "?page=" + page;
         }
         model.addAttribute("vo", vo);
@@ -79,7 +80,7 @@ public class BoardController {
     public String edit(@PathVariable("id") Long id, @ModelAttribute BoardVO vo, @RequestParam(value="page", defaultValue="1") int page, HttpSession session) {
         MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
         BoardVO existing = service.get(id);
-        if (loginUser == null || existing == null || (!existing.getWriterId().equals(loginUser.getId()) && !"ADMIN".equals(loginUser.getRole()))) {
+        if (loginUser == null || existing == null || (!Objects.equals(existing.getWriterId(), loginUser.getId()) && !"ADMIN".equals(loginUser.getRole()))) {
             return "redirect:/board/view/" + id + "?page=" + page;
         }
         vo.setId(id);
@@ -91,7 +92,7 @@ public class BoardController {
     public String delete(@PathVariable("id") Long id, @RequestParam(value="page", defaultValue="1") int page, HttpSession session) {
         MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
         BoardVO existing = service.get(id);
-        if (loginUser == null || existing == null || (!existing.getWriterId().equals(loginUser.getId()) && !"ADMIN".equals(loginUser.getRole()))) {
+        if (loginUser == null || existing == null || (!Objects.equals(existing.getWriterId(), loginUser.getId()) && !"ADMIN".equals(loginUser.getRole()))) {
             return "redirect:/board?page=" + page;
         }
         service.delete(id);
