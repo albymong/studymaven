@@ -35,13 +35,14 @@
             <c:if test="${not empty success}">
                 <div class="alert alert-success">${success}</div>
             </c:if>
-            <form action="/term/import" method="post" enctype="multipart/form-data">
+            <form action="<c:url value='/term/import'/>" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="file">파일 선택 (CSV 또는 JSON)</label>
                     <input type="file" id="file" name="file" accept=".csv,.json" required>
                 </div>
                 <button type="submit" class="btn">가져오기</button>
-                <a href="/term" class="btn btn-secondary">용어사전 바로가기</a>
+                <a href="<c:url value='/term'/>" class="btn btn-secondary">용어사전 바로가기</a>
+                <a href="<c:url value='/main'/>" class="btn btn-secondary">메인으로</a>
             </form>
             <div class="info">
                 <strong>CSV 형식:</strong> title,definition,content,category<br>

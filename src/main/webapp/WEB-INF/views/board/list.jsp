@@ -54,7 +54,7 @@
     <div class="container">
         <div class="header">
             <h1>게시판</h1>
-            <a href="/board/write?page=${currentPage}" class="btn">새 글 작성</a>
+            <a href="<c:url value='/board/write?page=${currentPage}'/>" class="btn">새 글 작성</a>
         </div>
         <div class="card">
             <c:if test="${empty list}">
@@ -76,21 +76,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:set var="total" value="${total}" />
                         <c:set var="offset" value="${(currentPage - 1) * 10}" />
                         <c:forEach var="vo" items="${list}" varStatus="status">
                         <tr>
                             <td>${total - offset - status.index}</td>
-                             <td><a href="/board/view/${vo.id}?page=${currentPage}"><c:out value="${vo.title}"/></a></td>
+                             <td><a href="<c:url value='/board/view/${vo.id}?page=${currentPage}'/>"><c:out value="${vo.title}"/></a></td>
                              <td><c:out value="${vo.writerName}"/></td>
                             <td>${vo.createDate}</td>
                             <td>${vo.updateDate}</td>
                             <td>
                                 <div class="actions">
-                                    <a href="/board/edit/${vo.id}?page=${currentPage}" class="btn-sm">수정</a>
-                                    <form action="/board/delete/${vo.id}?page=${currentPage}" method="post">
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('삭제하시겠습니까?')">삭제</button>
-                                    </form>
+                                     <a href="<c:url value='/board/edit/${vo.id}?page=${currentPage}'/>" class="btn-sm">수정</a>
+                                     <form action="<c:url value='/board/delete/${vo.id}?page=${currentPage}'/>" method="post">
+                                         <button type="submit" class="btn btn-danger" onclick="return confirm('삭제하시겠습니까?')">삭제</button>
+                                     </form>
                                 </div>
                             </td>
                         </tr>
@@ -120,7 +119,7 @@
             </div>
         </c:if>
         <div style="margin-top:20px; display: flex; justify-content: flex-end; gap: 8px;">
-            <a href="/main" class="btn btn-secondary">첫페이지로</a>
+            <a href="<c:url value='/main'/>" class="btn btn-secondary">첫페이지로</a>
         </div>
     </div>
 </body>

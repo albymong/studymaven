@@ -12,14 +12,14 @@
     .btn-primary:hover { background: #2563eb; }
 </style>
 <nav class="navbar">
-    <a href="/main" class="logo">Studymaven</a>
+    <a href="<c:url value='/main'/>" class="logo">Studymaven</a>
     <div class="user-nav">
         <c:if test="${not empty loginUser}">
             <span class="user-name"><c:out value="${loginUser.name}"/>님 환영합니다</span>
-            <a href="/main/logout" class="nav-btn btn-outline">로그아웃</a>
+            <a href="<c:url value='/main/logout'/>" class="nav-btn btn-outline">로그아웃</a>
         </c:if>
         <c:if test="${empty loginUser}">
-            <a href="/login" class="nav-btn btn-primary">로그인</a>
+            <a href="<c:url value='/login'/>" class="nav-btn btn-primary">로그인</a>
         </c:if>
     </div>
 </nav>

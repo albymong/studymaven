@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,7 @@
     <div class="container">
         <h1>용어 등록</h1>
         <div class="card">
-            <form action="/term/write" method="post">
+            <form action="<c:url value='/term/write'/>" method="post">
                 <div class="form-group">
                     <label for="title">용어명</label>
                     <input type="text" id="title" name="title" required>
@@ -54,10 +55,11 @@
                     <label for="tags">태그 (쉼표로 구분)</label>
                     <input type="text" id="tags" name="tags" placeholder="예: AI, 머신러닝, 데이터">
                 </div>
-                <div class="actions">
-                    <button type="submit" class="btn">저장</button>
-                    <a href="/term" class="btn btn-secondary">취소</a>
-                </div>
+        <div class="actions">
+            <button type="submit" class="btn">저장</button>
+            <a href="<c:url value='/term'/>" class="btn btn-secondary">목록으로</a>
+            <a href="<c:url value='/main'/>" class="btn btn-secondary">첫페이지</a>
+        </div>
             </form>
         </div>
     </div>

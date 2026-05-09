@@ -38,9 +38,9 @@
  
             <div class="content"><c:out value="${vo.content}"/></div>
             <div class="actions">
-                <a href="/board/edit/${vo.id}?page=${page}" class="btn">수정</a>
-                <a href="/board?page=${page}" class="btn btn-secondary">목록</a>
-                <a href="/main" class="btn btn-secondary">첫페이지</a>
+                <a href="<c:url value='/board/edit/${vo.id}?page=${page}'/>" class="btn">수정</a>
+                <a href="<c:url value='/board?page=${page}'/>" class="btn btn-secondary">목록</a>
+                <a href="<c:url value='/main'/>" class="btn btn-secondary">첫페이지</a>
             </div>
         </div>
     </div>

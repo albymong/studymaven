@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,7 @@
     <div class="container">
         <h1>용어 수정</h1>
         <div class="card">
-            <form action="/term/edit/${vo.id}" method="post">
+            <form action="<c:url value='/term/edit/${vo.id}'/>" method="post">
                 <div class="form-group">
                     <label for="title">용어명</label>
                     <input type="text" id="title" name="title" value="${vo.title}" required>
@@ -55,8 +56,8 @@
                     <input type="text" id="tags" name="tags" value="${vo.tags}">
                 </div>
                 <div class="actions">
-                    <button type="submit" class="btn">수정</button>
-                    <a href="/term" class="btn btn-secondary">취소</a>
+                    <button type="submit" class="btn">저장</button>
+                    <a href="<c:url value='/term'/>" class="btn btn-secondary">목록</a>
                 </div>
             </form>
         </div>

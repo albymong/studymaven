@@ -89,26 +89,26 @@
                     <c:forEach var="vo" items="${list}" begin="0" end="5">
                         <tr>
                             <td style="text-align: center; color: #9ca3af;"><c:out value="${vo.id}"/></td>
-                            <td><a href="/board/view/${vo.id}?page=1" class="post-link"><c:out value="${vo.title}"/></a></td>
-                            <td style="text-align: center; color: #6b7280;"><c:out value="${vo.createDate}"/></td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-        </div>
-        <div style="text-align: right;">
-            <a href="/board" class="view-all-btn">모든 게시글 보기 →</a>
-        </div>
-    </section>
- 
-    <c:if test="${loginUser.role == 'ADMIN'}">
-        <section class="admin-panel">
-            <div class="admin-title">관리자 전용 도구</div>
-            <div class="admin-btns">
-                <a href="/term/import" class="admin-btn">용어 데이터 가져오기</a>
-                <a href="/term/write" class="admin-btn">신규 용어 등록</a>
+                                <td><a href="<c:url value='/board/view/${vo.id}?page=1'/>" class="post-link"><c:out value="${vo.title}"/></a></td>
+                                <td style="text-align: center; color: #6b7280;"><c:out value="${vo.createDate}"/></td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            <div style="text-align: right;">
+                <a href="<c:url value='/board'/>" class="view-all-btn">모든 게시글 보기 →</a>
             </div>
         </section>
-    </c:if>
+     
+        <c:if test="${loginUser.role == 'ADMIN'}">
+            <section class="admin-panel">
+                <div class="admin-title">관리자 전용 도구</div>
+                <div class="admin-btns">
+                    <a href="<c:url value='/term/import'/>" class="admin-btn">용어 데이터 가져오기</a>
+                    <a href="<c:url value='/term/write'/>" class="admin-btn">신규 용어 등록</a>
+                </div>
+            </section>
+        </c:if>
 </body>
 </html>

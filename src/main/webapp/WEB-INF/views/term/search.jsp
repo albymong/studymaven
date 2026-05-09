@@ -44,12 +44,12 @@
             <h1>용어사전</h1>
             <div>
                 <c:if test="${not empty sessionScope.loginUser and sessionScope.loginUser.role eq 'ADMIN'}">
-                    <a href="/term/import" class="btn-import">용어 가져오기</a>
+                    <a href="<c:url value='/term/import'/>" class="btn-import">용어 가져오기</a>
                 </c:if>
-                <a href="/main" class="btn-secondary" style="padding: 8px 16px; background: #6b7280; color: white; text-decoration: none; border-radius: 6px; font-size: 14px; margin-left: 8px; font-weight: 500;">메인으로</a>
+                <a href="<c:url value='/main'/>" class="btn-secondary" style="padding: 8px 16px; background: #6b7280; color: white; text-decoration: none; border-radius: 6px; font-size: 14px; margin-left: 8px; font-weight: 500;">메인으로</a>
             </div>
         </div>
-        <form class="search-box" action="/term" method="get">
+        <form class="search-box" action="<c:url value='/term'/>" method="get">
             <input type="text" name="q" placeholder="궁금한 AI 용어를 검색해보세요" value="${query}">
             <button type="submit">검색</button>
         </form>
@@ -58,9 +58,9 @@
         </c:if>
         <div class="term-grid">
             <c:forEach var="vo" items="${list}">
-                <div class="card" onclick="location.href='/term/view/${vo.id}'">
+                <div class="card" onclick="location.href='<c:url value='/term/view/${vo.id}'/>'">
                     <div>
-                        <a href="/term/view/${vo.id}" class="term-title"><c:out value="${vo.title}"/></a>
+                        <a href="<c:url value='/term/view/${vo.id}'/>" class="term-title"><c:out value="${vo.title}"/></a>
                         <p class="term-def"><c:out value="${vo.definition}"/></p>
                     </div>
                     <div class="term-footer">

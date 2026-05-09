@@ -39,8 +39,8 @@
                 </div>
                 <div class="actions">
                     <button type="submit" class="btn">저장</button>
-                    <a href="/board?page=${page}" class="btn btn-secondary">목록으로</a>
-                    <a href="/main" class="btn btn-secondary">첫페이지</a>
+                    <a href="<c:url value='/board?page=${page}'/>" class="btn btn-secondary">목록으로</a>
+                    <a href="<c:url value='/main'/>" class="btn btn-secondary">첫페이지</a>
                 </div>
             </form>
         </div>

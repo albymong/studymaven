@@ -49,17 +49,17 @@
             </div>
             </div>
             <div class="actions">
-                <a href="/term" class="btn">목록</a>
+                <a href="<c:url value='/term'/>" class="btn">목록</a>
                 <c:if test="${loginUser.role == 'ADMIN'}">
-                    <a href="/term/edit/${vo.id}" class="btn">수정</a>
-                    <form action="/term/delete/${vo.id}" method="post" style="display:inline">
+                    <a href="<c:url value='/term/edit/${vo.id}'/>" class="btn">수정</a>
+                    <form action="<c:url value='/term/delete/${vo.id}'/>" method="post" style="display:inline">
                         <button type="submit" class="btn btn-danger" onclick="return confirm('삭제하시겠습니까?')">삭제</button>
                     </form>
                 </c:if>
             </div>
         </div>
         <div style="margin-top:20px; display: flex; justify-content: flex-end;">
-            <a href="/main" class="btn btn-secondary" style="background: #6b7280; color: white; text-decoration: none; border-radius: 6px; padding: 10px 20px;">메인으로</a>
+            <a href="<c:url value='/main'/>" class="btn btn-secondary" style="background: #6b7280; color: white; text-decoration: none; border-radius: 6px; padding: 10px 20px;">메인으로</a>
         </div>
     </div>
 </body>
