@@ -7,7 +7,7 @@
     <title>용어 가져오기</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 20px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 80px 20px 20px 20px; }
         .container { max-width: 600px; margin: 0 auto; }
         h1 { color: #111; margin-bottom: 20px; }
         .card { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 24px; }
@@ -25,6 +25,7 @@
     </style>
 </head>
 <body>
+    <jsp:include page="/WEB-INF/views/common/header.jsp" />
     <div class="container">
         <h1>용어 가져오기</h1>
         <div class="card">
@@ -34,13 +35,14 @@
             <c:if test="${not empty success}">
                 <div class="alert alert-success">${success}</div>
             </c:if>
-            <form action="/term/import" method="post" enctype="multipart/form-data">
+            <form action="<c:url value='/term/import'/>" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="file">파일 선택 (CSV 또는 JSON)</label>
                     <input type="file" id="file" name="file" accept=".csv,.json" required>
                 </div>
                 <button type="submit" class="btn">가져오기</button>
-                <a href="/term" class="btn btn-secondary">용어사전 바로가기</a>
+                <a href="<c:url value='/term'/>" class="btn btn-secondary">용어사전 바로가기</a>
+                <a href="<c:url value='/main'/>" class="btn btn-secondary">메인으로</a>
             </form>
             <div class="info">
                 <strong>CSV 형식:</strong> title,definition,content,category<br>
