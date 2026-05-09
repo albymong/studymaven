@@ -9,7 +9,7 @@
     <title><c:out value="${vo.title}"/> - 용어사전</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 20px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 80px 20px 20px 20px; }
         .container { max-width: 800px; margin: 0 auto; }
         .card { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 24px; }
         .title { font-size: 24px; font-weight: 600; color: #111; margin-bottom: 16px; }
@@ -27,6 +27,7 @@
     </style>
 </head>
 <body>
+    <jsp:include page="/WEB-INF/views/common/header.jsp" />
     <div class="container">
         <div class="card">
             <div class="title"><c:out value="${vo.title}"/></div>
@@ -57,8 +58,8 @@
                 </c:if>
             </div>
         </div>
-        <div style="margin-top:20px">
-            <a href="/main" class="btn" style="background:#3b82f6">← 메인으로</a>
+        <div style="margin-top:20px; display: flex; justify-content: flex-end;">
+            <a href="/main" class="btn btn-secondary" style="background: #6b7280; color: white; text-decoration: none; border-radius: 6px; padding: 10px 20px;">메인으로</a>
         </div>
     </div>
 </body>

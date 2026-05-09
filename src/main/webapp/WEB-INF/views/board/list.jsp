@@ -21,7 +21,7 @@
     <title>게시판</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 20px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 80px 20px 20px 20px; }
         .container { max-width: 800px; margin: 0 auto; }
         h1 { color: #333; margin-bottom: 20px; }
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
@@ -50,6 +50,7 @@
     </style>
 </head>
 <body>
+    <jsp:include page="/WEB-INF/views/common/header.jsp" />
     <div class="container">
         <div class="header">
             <h1>게시판</h1>
@@ -60,7 +61,7 @@
                 <div class="empty">게시글이 없습니다.</div>
             </c:if>
             <c:if test="${not empty list}">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                <div style="display:flex;justify-content:flex-end;align-items:center;margin-bottom:8px;padding-right:12px">
                     <span class="info">총 ${total}개</span>
                 </div>
                 <table>
@@ -76,7 +77,7 @@
                     </thead>
                     <tbody>
                         <c:set var="total" value="${total}" />
-                        <c:set var="offset" value="${(currentPage - 1) * 5}" />
+                        <c:set var="offset" value="${(currentPage - 1) * 10}" />
                         <c:forEach var="vo" items="${list}" varStatus="status">
                         <tr>
                             <td>${total - offset - status.index}</td>
@@ -118,8 +119,8 @@
                 </c:if>
             </div>
         </c:if>
-        <div style="margin-top:20px">
-            <a href="/main" class="link-btn">← 첫페이지</a>
+        <div style="margin-top:20px; display: flex; justify-content: flex-end; gap: 8px;">
+            <a href="/main" class="btn btn-secondary">첫페이지로</a>
         </div>
     </div>
 </body>

@@ -34,7 +34,13 @@ public class MainController {
         model.addAttribute("loginUser", loginUser);
         return "main/main";
     }
-
+ 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
+ 
     private String formatDate(String s) {
         if (s == null || s.length() < 19) return s;
         try {

@@ -7,7 +7,7 @@
     <title>용어 수정</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 20px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 80px 20px 20px 20px; }
         .container { max-width: 800px; margin: 0 auto; }
         h1 { color: #111; margin-bottom: 20px; }
         .card { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 24px; }
@@ -24,6 +24,7 @@
     </style>
 </head>
 <body>
+    <jsp:include page="/WEB-INF/views/common/header.jsp" />
     <div class="container">
         <h1>용어 수정</h1>
         <div class="card">
