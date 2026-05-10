@@ -21,10 +21,19 @@
         .btn:hover { background: #2563eb; }
         .btn-secondary { background: #6b7280; }
         .btn-secondary:hover { background: #4b5563; }
+        .files-section { margin-top: 24px; padding-top: 16px; border-top: 1px solid #e5e7eb; }
+        .files-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .file-item { font-size: 14px; }
+        .file-link { color: #3b82f6; text-decoration: none; }
+        .file-link:hover { text-decoration: underline; }
+        .file-size { color: #9ca3af; font-size: 12px; margin-left: 8px; }
     </style>
 </head>
 <body>
     <jsp:include page="/WEB-INF/views/common/header.jsp" />
+    <c:if test="${not empty message}">
+        <script>alert('${message}');</script>
+    </c:if>
     <div class="container">
         <h1>게시판 보기</h1>
         <div class="card">
@@ -37,6 +46,22 @@
             </div>
  
             <div class="content"><c:out value="${vo.content}"/></div>
+            
+            <c:if test="${not empty files}">
+                <div class="files-section">
+                    <h3 style="font-size: 16px; margin-bottom: 12px; color: #374151;">첨부 파일</h3>
+                    <ul class="files-list">
+                        <c:forEach var="file" items="${files}">
+                            <li class="file-item">
+                                 <a href="<c:url value='/download/execute?fileId=${file.id}'/>" class="file-link">
+                                    <span style="margin-right: 8px;">📎</span><c:out value="${file.originalName}"/>
+                                    <span class="file-size">(<c:out value="${file.fileSize}"/> bytes)</span>
+                                </a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </c:if>
             <div class="actions">
                 <a href="<c:url value='/board/edit/${vo.id}?page=${page}'/>" class="btn">수정</a>
                 <a href="<c:url value='/board?page=${page}'/>" class="btn btn-secondary">목록</a>

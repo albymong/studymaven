@@ -22,6 +22,11 @@
         .btn:hover { background: #2563eb; }
         .btn-secondary { background: #6b7280; }
         .btn-secondary:hover { background: #4b5563; }
+        .existing-files { margin-bottom: 12px; padding: 12px; background: #f9fafb; border-radius: 6px; border: 1px solid #e5e7eb; }
+        .existing-files h4 { font-size: 14px; color: #374151; margin-bottom: 8px; }
+        .file-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+        .file-item { font-size: 13px; color: #6b7280; display: flex; align-items: center; }
+        .file-item span { margin-right: 8px; }
     </style>
 </head>
 <body>
@@ -29,16 +34,36 @@
     <div class="container">
         <h1>게시판 수정</h1>
         <div class="card">
-            <form action="<c:url value='/board/edit/${vo.id}?page=${page}'/>" method="post">
-                <div class="form-group">
-                    <label for="title">제목</label>
-                    <input type="text" id="title" name="title" value="${vo.title}" required>
-                </div>
-                <div class="form-group">
-                    <label for="content">내용</label>
-                    <textarea id="content" name="content" required>${vo.content}</textarea>
-                </div>
-                <div class="actions">
+<form action="<c:url value='/board/edit/${vo.id}?page=${page}'/>" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="${vo.id}">
+                    <div class="form-group">
+                        <label for="title">제목</label>
+                        <input type="text" id="title" name="title" value="${vo.title}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">내용</label>
+                        <textarea id="content" name="content" required>${vo.content}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>현재 첨부 파일</label>
+                        <div class="existing-files">
+                            <ul class="file-list">
+                                <c:forEach var="file" items="${files}">
+                                    <li class="file-item">
+                                        <span>📎</span> <c:out value="${file.originalName}"/> (<c:out value="${file.fileSize}"/> bytes)
+                                    </li>
+                                </c:forEach>
+                                <c:if test="${empty files}">
+                                    <span style="font-size: 13px; color: #9ca3af;">첨부된 파일이 없습니다.</span>
+                                </c:if>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="files">첨부 파일 (최대 10개, 새로 업로드 시 기존 파일은 삭제됩니다)</label>
+                        <input type="file" id="files" name="files" multiple style="border: none; padding: 0;">
+                    </div>
+                    <div class="actions">
                     <button type="submit" class="btn">저장</button>
                     <a href="<c:url value='/board?page=${page}'/>" class="btn btn-secondary">목록</a>
                 </div>

@@ -12,7 +12,11 @@
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 80px 20px 20px 20px; }
         .container { max-width: 800px; margin: 0 auto; }
         .card { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 24px; }
-        .title { font-size: 24px; font-weight: 600; color: #111; margin-bottom: 16px; }
+        .title { font-size: 24px; font-weight: 600; color: #111; }
+        .header-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .page-header { background: #f5f5f5; padding: 20px 0; margin-bottom: 30px; border-bottom: 1px solid #e5e7eb; }
+        .page-header-container { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .page-title { font-size: 28px; font-weight: 700; color: #111; }
         .definition { font-size: 18px; color: #374151; margin-bottom: 16px; font-weight: 500; }
         .content { color: #4b5563; line-height: 1.6; white-space: pre-wrap; margin-bottom: 24px; padding: 16px; background: #f9fafb; border-radius: 6px; }
         .meta { color: #6b7280; font-size: 14px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e5e7eb; }
@@ -20,17 +24,26 @@
         .category { color: #3b82f6; font-weight: 500; }
         .tag { display: inline-block; padding: 4px 8px; background: #e5e7eb; border-radius: 4px; font-size: 12px; margin-right: 4px; }
         .actions { display: flex; gap: 12px; }
+        .bottom-actions { display: flex; justify-content: flex-start; gap: 12px; margin-top: 20px; }
         .btn { padding: 10px 20px; background: #6b7280; color: white; text-decoration: none; border-radius: 6px; border: none; cursor: pointer; font-size: 14px; display: inline-block; text-align: center; }
         .btn:hover { background: #4b5563; }
+        .btn-dark { background: #4b5563; }
         .btn-danger { background: #ef4444; }
         .btn-danger:hover { background: #dc2626; }
     </style>
 </head>
 <body>
     <jsp:include page="/WEB-INF/views/common/header.jsp" />
+    <div class="page-header">
+            <div class="page-header-container">
+                <div class="page-title">용어사전</div>
+            </div>
+    </div>
     <div class="container">
         <div class="card">
-            <div class="title"><c:out value="${vo.title}"/></div>
+            <div class="header-area">
+                <div class="title"><c:out value="${vo.title}"/></div>
+            </div>
             <div class="definition"><c:out value="${vo.definition}"/></div>
             <c:if test="${vo.content != null && vo.content != ''}">
                 <div class="content"><c:out value="${vo.content}"/></div>
@@ -47,20 +60,17 @@
                 <br>
                 작성자: <c:out value="${vo.authorName}"/> | 작성일: <c:out value="${vo.createDate}"/> | 수정일: <c:out value="${vo.updateDate}"/>
             </div>
-            </div>
-            <div class="actions">
-                <a href="<c:url value='/term'/>" class="btn">목록</a>
-                <c:if test="${loginUser.role == 'ADMIN'}">
-                    <a href="<c:url value='/term/edit/${vo.id}'/>" class="btn">수정</a>
-                    <form action="<c:url value='/term/delete/${vo.id}'/>" method="post" style="display:inline">
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('삭제하시겠습니까?')">삭제</button>
-                    </form>
-                </c:if>
-            </div>
         </div>
-        <div style="margin-top:20px; display: flex; justify-content: flex-end;">
-            <a href="<c:url value='/main'/>" class="btn btn-secondary" style="background: #6b7280; color: white; text-decoration: none; border-radius: 6px; padding: 10px 20px;">메인으로</a>
+        <div class="bottom-actions">
+            <a href="<c:url value='/term'/>" class="btn btn-dark">목록</a>
+            <c:if test="${loginUser.role == 'ADMIN'}">
+                <a href="<c:url value='/term/edit/${vo.id}'/>" class="btn btn-dark">수정</a>
+                <form action="<c:url value='/term/delete/${vo.id}'/>" method="post" style="display:inline">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('삭제하시겠습니까?')">삭제</button>
+                </form>
+            </c:if>
         </div>
+    </div>
     </div>
 </body>
 </html>
