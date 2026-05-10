@@ -51,19 +51,28 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/views/common/header.jsp" />
+    <c:if test="${not empty message}">
+        <script>alert('${message}');</script>
+    </c:if>
     <div class="container">
         <div class="header">
             <h1>게시판</h1>
             <a href="<c:url value='/board/write?page=${currentPage}'/>" class="btn">새 글 작성</a>
+        </div>
+        <c:if test="${not empty message}">
+            <div style="background: #eff6ff; color: #1e40af; padding: 12px; border-radius: 6px; margin-bottom: 16px; text-align: center; font-size: 14px; border: 1px solid #bfdbfe;">
+                <c:out value="${message}"/>
+            </div>
+        </c:if>
+        <div style="display:flex;justify-content:flex-end;align-items:center;margin-bottom:12px">
+            <span class="info">총 ${total}개</span>
         </div>
         <div class="card">
             <c:if test="${empty list}">
                 <div class="empty">게시글이 없습니다.</div>
             </c:if>
             <c:if test="${not empty list}">
-                <div style="display:flex;justify-content:flex-end;align-items:center;margin-bottom:8px;padding-right:12px">
-                    <span class="info">총 ${total}개</span>
-                </div>
+
                 <table>
                     <thead>
                         <tr>

@@ -1,36 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.studymaven.mapper.BoardMapper">
-    <resultMap id="BoardResultMap" type="com.studymaven.domain.BoardVO">
-        <id property="id" column="id" />
-        <result property="title" column="title" />
-        <result property="content" column="content" />
-        <result property="writerId" column="writer_id" />
-        <result property="writerName" column="writer_name" />
-        <result property="createDate" column="create_date" />
-        <result property="updateDate" column="update_date" />
-    </resultMap>
 
-    <select id="selectAll" resultMap="BoardResultMap">
-        SELECT b.id, b.title, b.content, b.writer_id, m.name as writer_name, b.create_date, b.update_date
+<mapper namespace="com.studymaven.mapper.BoardMapper">
+    <select id="selectAll" resultType="com.studymaven.domain.BoardVO">
+        SELECT 
+            b.id, 
+            b.title, 
+            b.content, 
+            b.create_date as createDate, 
+            b.update_date as updateDate,
+            b.writer_id as writerId,
+            m.name as writerName
         FROM board b
         LEFT JOIN member m ON b.writer_id = m.id
         ORDER BY b.id DESC
     </select>
 
-    <select id="selectPage" resultMap="BoardResultMap">
-        SELECT b.id, b.title, b.content, b.writer_id, m.name as writer_name, b.create_date, b.update_date
+    <select id="selectPage" resultType="com.studymaven.domain.BoardVO">
+        SELECT 
+            b.id, 
+            b.title, 
+            b.content, 
+            b.create_date as createDate, 
+            b.update_date as updateDate,
+            b.writer_id as writerId,
+            m.name as writerName
         FROM board b
         LEFT JOIN member m ON b.writer_id = m.id
-        ORDER BY b.id DESC LIMIT #{limit} OFFSET #{offset}
+        ORDER BY b.id DESC
+        LIMIT #{limit} OFFSET #{offset}
     </select>
 
     <select id="count" resultType="int">
         SELECT COUNT(*) FROM board
     </select>
 
-    <select id="select" resultMap="BoardResultMap">
-        SELECT b.id, b.title, b.content, b.writer_id, m.name as writer_name, b.create_date, b.update_date
+    <select id="select" resultType="com.studymaven.domain.BoardVO">
+        SELECT 
+            b.id, 
+            b.title, 
+            b.content, 
+            b.create_date as createDate, 
+            b.update_date as updateDate,
+            b.writer_id as writerId,
+            m.name as writerName
         FROM board b
         LEFT JOIN member m ON b.writer_id = m.id
         WHERE b.id = #{id}
@@ -42,11 +55,42 @@
     </insert>
 
     <update id="update">
-        UPDATE board SET title = #{title}, content = #{content}, update_date = NOW()
+        UPDATE board 
+        SET title = #{title}, content = #{content}, update_date = NOW()
         WHERE id = #{id}
     </update>
 
     <delete id="delete">
         DELETE FROM board WHERE id = #{id}
     </delete>
+
+    <select id="selectFiles" resultType="com.studymaven.domain.BoardFileVO">
+        SELECT id, board_id as boardId, original_name as originalName, 
+               stored_name as storedName, file_size as fileSize
+        FROM board_file
+        WHERE board_id = #{boardId}
+    </select>
+
+    <delete id="deleteFiles">
+        DELETE FROM board_file WHERE board_id = #{boardId}
+    </delete>
+
+    <select id="selectById" resultType="com.studymaven.domain.BoardFileVO">
+        SELECT id, board_id as boardId, original_name as originalName, 
+               stored_name as storedName, file_size as fileSize
+        FROM board_file
+        WHERE id = #{fileId}
+    </select>
+
+    <select id="selectByStoredName" resultType="com.studymaven.domain.BoardFileVO">
+        SELECT id, board_id as boardId, original_name as originalName, 
+               stored_name as storedName, file_size as fileSize
+        FROM board_file
+        WHERE stored_name = #{storedName}
+    </select>
+
+    <insert id="insertFile">
+        INSERT INTO board_file (board_id, original_name, stored_name, file_size)
+        VALUES (#{boardId}, #{originalName}, #{storedName}, #{fileSize})
+    </insert>
 </mapper>

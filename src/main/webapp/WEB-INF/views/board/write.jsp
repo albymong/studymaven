@@ -28,7 +28,7 @@
     <div class="container">
         <h1>게시판 작성</h1>
         <div class="card">
-            <form action="/board/write" method="post">
+            <form action="/board/write" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">제목</label>
                     <input type="text" id="title" name="title" required>
@@ -36,6 +36,10 @@
                 <div class="form-group">
                     <label for="content">내용</label>
                     <textarea id="content" name="content" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="files">첨부 파일 (최대 10개)</label>
+                    <input type="file" id="files" name="files" multiple style="border: none; padding: 0;">
                 </div>
                 <div class="actions">
                     <button type="submit" class="btn">저장</button>
